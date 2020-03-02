@@ -1,16 +1,14 @@
-// Read the full tutorial at prusaprinters.org
-
 #include <ClickEncoder.h>
 #include <TimerOne.h>
 #include <HID-Project.h>
 #include <EasyNeoPixels.h>
 
-#define ENCODER_CLK A0 // Change A0 to, for example, A5 if you want to use analog pin 5 instead
+#define ENCODER_CLK A0
 #define ENCODER_DT A1
 #define ENCODER_SW A2
 
-ClickEncoder *encoder; // variable representing the rotary encoder
-int16_t last, value; // variables for current and last rotation value
+ClickEncoder *encoder; 
+int16_t last, value;
 
 void timerIsr() {
   encoder->service();
@@ -53,11 +51,9 @@ void loop() {
   // This next part handles the rotary encoder BUTTON
   ClickEncoder::Button b = encoder->getButton(); // Asking the button for it's current state
   if (b != ClickEncoder::Open) { // If the button is unpressed, we'll skip to the end of this if block
-    //Serial.print("Button: "); 
-    //#define VERBOSECASE(label) case label: Serial.println(#label); break;
     switch (b) {
       case ClickEncoder::Clicked: // Button was clicked once
-        Consumer.write(MEDIA_PLAY_PAUSE); // Replace this line to have a different function when clicking button once
+        Consumer.write(MEDIA_PLAY_PAUSE);
         writeEasyNeoPixel(0, 255, 255, 0);
         writeEasyNeoPixel(1, 255, 255, 0);
         delay(500);
@@ -66,7 +62,7 @@ void loop() {
       case ClickEncoder::DoubleClicked: // Button was double clicked
          Consumer.write(MEDIA_NEXT);
          writeEasyNeoPixel(0, 0, 255, 0);
-         writeEasyNeoPixel(1, 0, 255, 0);// Replace this line to have a different function when double-clicking
+         writeEasyNeoPixel(1, 0, 255, 0);
          delay(500);
       break;      
     }
@@ -75,23 +71,4 @@ void loop() {
   delay(10); // Wait 10 milliseconds, we definitely don't need to detect the rotary encoder any faster than that
   writeEasyNeoPixel(0, 0, 0, 255);
   writeEasyNeoPixel(1, 0, 0, 255);
-  // The end of the loop() function, it will start again from the beggining (the begginging of the loop function, not the whole document)
-}
-
-
-/*
-    This is just a long comment
-    Here are some fun functions you can use to replace the default behaviour 
-    Consumer.write(CONSUMER_BRIGHTNESS_UP);
-    Consumer.write(CONSUMER_BRIGHTNESS_DOWN);
-    Consumer.write(CONSUMER_BROWSER_HOME);
-    Consumer.write(CONSUMER_SCREENSAVER);
-    Consumer.write(HID_CONSUMER_AL_CALCULATOR); //launch calculator :)
-    Consumer.write(HID_CONSUMER_AC_ZOOM_IN);
-    Consumer.write(HID_CONSUMER_AC_SCROLL_UP);
-    CONSUMER_SLEEP = 0x32,
-
-    FULL LIST CAN BE FOUND HERE:
-    https://github.com/NicoHood/HID/blob/master/src/HID-APIs/ConsumerAPI.h
-*/
-        
+  }
