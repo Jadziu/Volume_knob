@@ -1,4 +1,5 @@
 # Volume_knob
 Oversized volume knob via USB
 
-On Thingiverce: https://www.thingiverse.com/thing:4196640
+On Thingiverse: https://www.thingiverse.com/thing:4196640
+On YouTube: https://youtu.be/zCKyZDyN-KY
